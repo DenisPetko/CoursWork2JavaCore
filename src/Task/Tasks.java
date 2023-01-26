@@ -92,5 +92,13 @@ public class Tasks {
         return taskHeading;
     }
 
-
+    @Override
+    public String toString() {
+        return "Tasks{" +
+                "taskHeading='" + taskHeading + '\'' +
+                ", taskDescription='" + taskDescription + '\'' +
+                ", ldt=" + ldt +
+                ", id=" + id +
+                '}';
+    }
 }

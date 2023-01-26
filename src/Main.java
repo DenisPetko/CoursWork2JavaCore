@@ -20,7 +20,7 @@ public class Main {
                             inputTask(scanner);
                             break;
                         case 2:
-                            // todo: обрабатываем пункт меню 2
+                            tasks.deleteTask();
                             break;
                         case 3:
                             // todo: обрабатываем пункт меню 3
@@ -52,6 +52,8 @@ public class Main {
                         """
         );
     }
+
+
 }
 
 
