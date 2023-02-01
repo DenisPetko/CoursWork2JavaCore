@@ -4,7 +4,6 @@ import Excepiton.TaskNotFoundException;
 import Task.Tasks;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -17,7 +16,7 @@ public class TaskService {
         this.tasksMap.put(tasks.getId(), tasks);
     }
 
-    public void remove(Integer idTask) throws TaskNotFoundException {
+    public void remove(int idTask) throws TaskNotFoundException {
         if (this.tasksMap.containsKey(idTask)) {
             this.tasksMap.remove(idTask);
         } else {
@@ -28,9 +27,8 @@ public class TaskService {
     public Collection<Tasks> getTasksForThisDay(LocalDate localDate) {
         Collection<Tasks> tasksForThisDay = new ArrayList<>();
         for (Tasks tasks : tasksMap.values()) {
-            LocalDateTime timeTask = tasks.getTimeTask();
 
-            if (timeTask.toLocalDate().equals(localDate)) {
+            if (tasks.appersIn(localDate)) {
                 tasksForThisDay.add(tasks);
             }
         }

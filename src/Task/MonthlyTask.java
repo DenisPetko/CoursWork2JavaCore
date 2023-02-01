@@ -2,6 +2,7 @@ package Task;
 
 import Excepiton.IncorrectArgumentException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class MonthlyTask extends Tasks {
@@ -11,7 +12,8 @@ public class MonthlyTask extends Tasks {
     }
 
     @Override
-    public LocalDateTime getTaskRepeatable(LocalDateTime dateTime) {
-        return dateTime.plusMonths(1);
+    public boolean appersIn(LocalDate localDate) {
+        return (localDate.isEqual(getTimeTask().toLocalDate()) || localDate.isAfter(getTimeTask().toLocalDate())) && localDate.getDayOfMonth()==getTimeTask().toLocalDate().getDayOfMonth();
     }
+
 }

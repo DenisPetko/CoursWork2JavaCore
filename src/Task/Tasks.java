@@ -1,12 +1,12 @@
 package Task;
 
 import Excepiton.IncorrectArgumentException;
-import Interfaces.Repeatable;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public abstract class Tasks implements Repeatable {
+public abstract class Tasks {
 
     private String taskHeading;
     private String taskDescription;
@@ -79,6 +79,8 @@ public abstract class Tasks implements Repeatable {
         this.id = id;
     }
 
+    public abstract boolean appersIn(LocalDate localDate);
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -94,12 +96,12 @@ public abstract class Tasks implements Repeatable {
 
     @Override
     public String toString() {
-        return "Tasks{" +
+        return "Задачи: " +
                 "taskHeading='" + taskHeading + '\'' +
                 ", taskDescription='" + taskDescription + '\'' +
                 ", timeTask=" + timeTask +
                 ", typeOfTask=" + typeOfTask +
                 ", id=" + id +
-                '}';
+                '}'+'\n';
     }
 }

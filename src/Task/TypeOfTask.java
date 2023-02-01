@@ -19,7 +19,7 @@ public enum TypeOfTask {
 
     @Override
     public String toString() {
-        return "Тип задачи: " + typeOfTask;
+        return typeOfTask;
     }
 }
 

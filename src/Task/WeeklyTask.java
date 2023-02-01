@@ -2,6 +2,7 @@ package Task;
 
 import Excepiton.IncorrectArgumentException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class WeeklyTask extends Tasks {
@@ -11,7 +12,8 @@ public class WeeklyTask extends Tasks {
     }
 
     @Override
-    public LocalDateTime getTaskRepeatable(LocalDateTime dateTime) {
-        return dateTime.plusWeeks(1);
+    public boolean appersIn(LocalDate localDate) {
+        return (localDate.isEqual(getTimeTask().toLocalDate()) || localDate.isAfter(getTimeTask().toLocalDate())) && localDate.getDayOfWeek()==getTimeTask().toLocalDate().getDayOfWeek();
     }
+
 }

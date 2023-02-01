@@ -2,6 +2,7 @@ package Task;
 
 import Excepiton.IncorrectArgumentException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class YearlyTask extends Tasks {
@@ -11,7 +12,7 @@ public class YearlyTask extends Tasks {
     }
 
     @Override
-    public LocalDateTime getTaskRepeatable(LocalDateTime dateTime) {
-        return dateTime.plusYears(1);
+    public boolean appersIn(LocalDate localDate) {
+        return (localDate.isEqual(getTimeTask().toLocalDate()) || localDate.isAfter(getTimeTask().toLocalDate())) && localDate.getDayOfYear()==getTimeTask().toLocalDate().getDayOfYear();
     }
 }
