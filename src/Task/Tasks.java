@@ -1,96 +1,107 @@
 package Task;
 
-import java.time.LocalDateTime;
+import Excepiton.IncorrectArgumentException;
 
-public class Tasks {
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Objects;
+
+public abstract class Tasks {
 
     private String taskHeading;
     private String taskDescription;
-    private LocalDateTime ldt;
-    private final int id;
-    private static int count = 0;
+    private LocalDateTime timeTask;
+    private TypeOfTask typeOfTask;
+    private int id;
+    private static int idCount = 0;
 
-    public enum TypeOfTask {
-        PERSONAL("Личная"), WORK("Рабочая");
-        private final String typeOfTask;
-
-        TypeOfTask(String typeOfTask) {
-            if (typeOfTask == null || typeOfTask.isEmpty() || typeOfTask.isBlank()) {
-                throw new IllegalArgumentException();
-            } else {
-                this.typeOfTask = typeOfTask;
-            }
-        }
-
-        public String getTypeOfTask() {
-            return typeOfTask;
-        }
-
-        @Override
-        public String toString() {
-            return "Тип задачи: " + typeOfTask;
-        }
-    }
-
-    public enum Repeatability {
-
-        ONCE("Однократная"), DAILY("Ежедневная"),
-        WEEKLY("Еженедельная"), MONTHLY("Ежемесячная"),
-        ANNUAL("Ежегодная");
-
-        private final String repeatability;
-
-        Repeatability(String repeatability) {
-            if (repeatability == null || repeatability.isEmpty() || repeatability.isBlank()) {
-                throw new IllegalArgumentException();
-            } else {
-                this.repeatability = repeatability;
-            }
-        }
-
-        public String getRepeatability() {
-            return repeatability;
-        }
-
-        @Override
-        public String toString() {
-            return "Повторяемость: " + repeatability;
-        }
-    }
-
-    public Tasks(String taskHeading, String taskDescription, TypeOfTask typeOfTask, Repeatability repeatability) {
-
-        if (taskHeading == null || taskHeading.isEmpty() || taskHeading.isBlank()) {
-            throw new IllegalArgumentException();
-        } else {
-            this.taskHeading = taskHeading;
-        }
-
-        if (taskDescription == null || taskDescription.isEmpty() || taskDescription.isBlank()) {
-            throw new IllegalArgumentException();
-        } else {
-            this.taskDescription = taskDescription;
-        }
-
-        this.id = count;
-        count++;
-    }
-
-    public void addTask() {
-        System.out.println("Добавлена новая задача: " + getTaskHeading());
-    }
-
-    public void deleteTask() {
-        System.out.println("Удалена задача: " + getTaskHeading());
-    }
-
-    public void getListTask() {
-
+    public Tasks(String taskHeading, String taskDescription, LocalDateTime timeTask, TypeOfTask typeOfTask) throws IncorrectArgumentException {
+        setTaskHeading(taskHeading);
+        setTaskDescription(taskDescription);
+        setTimeTask(timeTask);
+        setTypeOfTask(typeOfTask);
+        this.id = idCount++;
     }
 
     public String getTaskHeading() {
         return taskHeading;
     }
 
+    public void setTaskHeading(String taskHeading) throws IncorrectArgumentException {
+        if (taskHeading == null || taskHeading.isEmpty()) {
+            throw new IncorrectArgumentException("Заголовок");
+        } else {
+            this.taskHeading = taskHeading;
+        }
+    }
 
+    public String getTaskDescription() {
+        return taskDescription;
+    }
+
+    public void setTaskDescription(String taskDescription) throws IncorrectArgumentException {
+        if (taskDescription == null || taskDescription.isEmpty()) {
+            throw new IncorrectArgumentException("Заголовок");
+        } else {
+            this.taskDescription = taskDescription;
+        }
+    }
+
+    public LocalDateTime getTimeTask() {
+        return timeTask;
+    }
+
+    public void setTimeTask(LocalDateTime timeTask) throws IncorrectArgumentException {
+        if (timeTask == null) {
+            throw new IncorrectArgumentException("Дата и время");
+        } else {
+            this.timeTask = timeTask;
+        }
+    }
+
+    public TypeOfTask getTypeOfTask() {
+        return typeOfTask;
+    }
+
+    public void setTypeOfTask(TypeOfTask typeOfTask) throws IncorrectArgumentException {
+        if (typeOfTask == null) {
+            throw new IncorrectArgumentException("Тип задачи");
+        } else {
+            this.typeOfTask = typeOfTask;
+        }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public abstract boolean appersIn(LocalDate localDate);
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tasks tasks = (Tasks) o;
+        return id == tasks.id && Objects.equals(taskHeading, tasks.taskHeading) && Objects.equals(taskDescription, tasks.taskDescription) && Objects.equals(timeTask, tasks.timeTask) && typeOfTask == tasks.typeOfTask;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(taskHeading, taskDescription, timeTask, typeOfTask, id);
+    }
+
+    @Override
+    public String toString() {
+        return "Задачи: " +
+                "taskHeading='" + taskHeading + '\'' +
+                ", taskDescription='" + taskDescription + '\'' +
+                ", timeTask=" + timeTask +
+                ", typeOfTask=" + typeOfTask +
+                ", id=" + id +
+                '}'+'\n';
+    }
 }
